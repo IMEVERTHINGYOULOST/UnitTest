@@ -1,0 +1,6 @@
+#cp file from jenkins workspace to normal 
+
+1.将jenkins中的workspace中的某一个目录修改用户为普通用户
+结果运行的时候直接报错，说workspace不清纯，删除了所有workspace重新download...fuck
+
+2.
