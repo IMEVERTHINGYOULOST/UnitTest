@@ -1,8 +1,11 @@
 #cp file from jenkins workspace to normal 
 
+一些经验：
 1.将jenkins中的workspace中的某一个目录修改用户为普通用户
 结果运行的时候直接报错，说workspace不清纯，删除了所有workspace重新download...fuck
 
+##copycpp shell
+因为服务器定时删除的规则，所以需要从/var/lib/jenkins/workspace/mypro下将文件拷贝到正常用户的目录
 #!/bin/bash
 ##mem_utility
 ##mkdir test
@@ -27,34 +30,9 @@ cp /var/lib/jenkins/workspace/unit_test/utility_base/mem_utility/test/*.pro /use
 cd /users/hxdms/vobs/hx_platform/utility_base/mem_utility/test/
 chown -R hxdms:hxdms *.cpp
 chown -R hxdms:hxdms *.pro
-
-##sophic_mem_log
-##mkdir test
-cd /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/
-if [ ! -d "/users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test" ];then
-mkdir test
-chown -R hxdms:hxdms test
-fi
-##cp gcovr 
-if [ ! -d "/users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test/gcovr" ];then
-cp /users/hxdms/utools/gcovr /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test
-cd /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test
-chown -R hxdms:hxdms gcovr
-fi
-##cp src cpp
-cp /var/lib/jenkins/workspace/unit_test/utility_base/sophic_mem_log/*.cpp /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log
-cd /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/
-chown -R hxdms:hxdms *.cpp
-##cp test.cpp
-cp /var/lib/jenkins/workspace/unit_test/utility_base/sophic_mem_log/test/*.cpp /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test
-cp /var/lib/jenkins/workspace/unit_test/utility_base/sophic_mem_log/test/*.pro /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test
-cd /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test/
-chown -R hxdms:hxdms *.cpp
-chown -R hxdms:hxdms *.pro
-
 exit 0
 
-
+##生成覆盖率报告
 #!bin/bash
 cd /users/hxdms/vobs/hx_platform/utility_base/mem_utility/test
 rm mem_utility_utest.xml
