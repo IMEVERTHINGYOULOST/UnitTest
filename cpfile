@@ -3,4 +3,65 @@
 1.将jenkins中的workspace中的某一个目录修改用户为普通用户
 结果运行的时候直接报错，说workspace不清纯，删除了所有workspace重新download...fuck
 
-2.
+#!/bin/bash
+##mem_utility
+##mkdir test
+cd /users/hxdms/vobs/hx_platform/utility_base/mem_utility/
+if [ ! -d "/users/hxdms/vobs/hx_platform/utility_base/mem_utility/test" ];then
+mkdir test
+chown -R hxdms:hxdms test
+fi
+##cp gcovr 
+if [ ! -d "/users/hxdms/vobs/hx_platform/utility_base/mem_utility/test/gcovr" ];then
+cp /users/hxdms/utools/gcovr /users/hxdms/vobs/hx_platform/utility_base/mem_utility/test
+cd /users/hxdms/vobs/hx_platform/utility_base/mem_utility/test
+chown -R hxdms:hxdms gcovr
+fi
+##cp src cpp
+cp /var/lib/jenkins/workspace/unit_test/utility_base/mem_utility/*.cpp /users/hxdms/vobs/hx_platform/utility_base/mem_utility
+cd /users/hxdms/vobs/hx_platform/utility_base/mem_utility/
+chown -R hxdms:hxdms *.cpp
+##cp test.cpp
+cp /var/lib/jenkins/workspace/unit_test/utility_base/mem_utility/test/*.cpp /users/hxdms/vobs/hx_platform/utility_base/mem_utility/test
+cp /var/lib/jenkins/workspace/unit_test/utility_base/mem_utility/test/*.pro /users/hxdms/vobs/hx_platform/utility_base/mem_utility/test
+cd /users/hxdms/vobs/hx_platform/utility_base/mem_utility/test/
+chown -R hxdms:hxdms *.cpp
+chown -R hxdms:hxdms *.pro
+
+##sophic_mem_log
+##mkdir test
+cd /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/
+if [ ! -d "/users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test" ];then
+mkdir test
+chown -R hxdms:hxdms test
+fi
+##cp gcovr 
+if [ ! -d "/users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test/gcovr" ];then
+cp /users/hxdms/utools/gcovr /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test
+cd /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test
+chown -R hxdms:hxdms gcovr
+fi
+##cp src cpp
+cp /var/lib/jenkins/workspace/unit_test/utility_base/sophic_mem_log/*.cpp /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log
+cd /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/
+chown -R hxdms:hxdms *.cpp
+##cp test.cpp
+cp /var/lib/jenkins/workspace/unit_test/utility_base/sophic_mem_log/test/*.cpp /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test
+cp /var/lib/jenkins/workspace/unit_test/utility_base/sophic_mem_log/test/*.pro /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test
+cd /users/hxdms/vobs/hx_platform/utility_base/sophic_mem_log/test/
+chown -R hxdms:hxdms *.cpp
+chown -R hxdms:hxdms *.pro
+
+exit 0
+
+
+#!bin/bash
+cd /users/hxdms/vobs/hx_platform/utility_base/mem_utility/test
+rm mem_utility_utest.xml
+qmake
+make clean
+make
+./mem_utility_utest
+rm mem_utility_coverage.xml
+./gcovr -x -r .. --output mem_utility_coverage.xml
+exit 0
