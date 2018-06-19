@@ -1,0 +1,35 @@
+GTEST 使用(CENTOS)
+一．googletest在VS2010下使用
+1.Download the latest version of gtest on github to stored locally which file name is googletest-master
+VS2010 open gtest.sln，gtest.sln,path is ./googletest-master/googletest/msvc/2010
+
+2.get four projects,list below,but only gtest is needed
+gtest
+gtest_main
+gtest_prod_test
+gtest_unittest
+对gtest分别在X64模式下Debug和Release下进行build，生成2个lib文件；新建googletest\lib，将新生成的lib文件放入
+
+3.新建一个简单的测试项目，项目类型为.exe类型
+3.1.添加额外的你要搜索的包含头文件的“include”目录
+Properity->C/C++->Gerneral
+3.2.添加额外的你要搜索的包含库文件（即.lib)的目录
+3.3.清楚地列出你要添加的.lib文件
+
+3.4.多线程调试(/MTd)
+
+3.5.写一个test用例
+
+
+
+4.问题：
+4.1.无法发现linker
+只有.exe有linker
+4.2.vs2010 问题 >LINK : fatal error LNK1123: 转换到 COFF 期间失败: 文件无效或损坏
+暂时解决办法：将INCREMENTAL
+Project Properties
+   -> Configuration Properties
+       -> Linker (General)
+          -> Enable Incremental Linking -> "No (/INCREMENTAL:NO)"
+
+
