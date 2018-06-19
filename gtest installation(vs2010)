@@ -1,5 +1,4 @@
-GTEST 使用(CENTOS)
-一．googletest在VS2010下使用
+googletest usage in VS2010
 1.Download the latest version of gtest on github to stored locally which file name is googletest-master
 VS2010 open gtest.sln，gtest.sln,path is ./googletest-master/googletest/msvc/2010
 
